@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Find Ride</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Make sure map is visible */
+    #map {
+      height: 400px;
+      width: 100%;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <h1>Campus Ride Sharing 🚗</h1>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="offer.html">Offer Ride</a></li>
+      <li><a href="find.html">Find Ride</a></li>
+      <li><a href="profile.html">Profile</a></li>
+    </ul>
+  </nav>
+
+  <section>
+    <h2>Available Rides</h2>
+    <div class="ride-card">
+      <h3>Hostel Gate → Canteen</h3>
+      <p>Driver: Aarav Kumar | Time: 10:00 AM | Seats: 3</p>
+    </div>
+    <div class="ride-card">
+      <h3>Main Gate → City Mall</h3>
+      <p>Driver: Priya Sharma | Time: 2:00 PM | Seats: 2</p>
+    </div>
+  </section>
+
+  <!-- Map container -->
+  <div id="map"></div>
+
+  <!-- Script for Google Maps -->
+  <script>
+    function initMap() {
+      // Center at your campus (example: IIT Delhi)
+      var campus = { lat: 28.5450, lng: 77.1926 };
+      var map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 14,
+        center: campus
+      });
+
+      // Example rides
+      var rides = [
+        { pickup: {lat:28.544, lng:77.193}, drop: {lat:28.547, lng:77.192}, driver:"Aarav Kumar" },
+        { pickup: {lat:28.546, lng:77.191}, drop: {lat:28.55, lng:77.195}, driver:"Priya Sharma" }
+      ];
+
+      // Add markers
+      rides.forEach(r => {
+        new google.maps.Marker({ position: r.pickup, map: map, label:"P" });
+        new google.maps.Marker({ position: r.drop, map: map, label:"D" });
+      });
+    }
+  </script>
+
+  <!-- Load Google Maps API (replace YOUR_API_KEY with your actual key) -->
+  <script async defer 
+    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+  </script>
+</body>
+</html>
+
